@@ -29,6 +29,7 @@
 
 // </rtc-template>
 
+#include "UrgBase.h"
 using namespace RTC;
 
 /*!
@@ -289,6 +290,8 @@ class UrgRTC
   
   // </rtc-template>
 
+
+  ssr::UrgBase *m_pUrg;
 };
 
 

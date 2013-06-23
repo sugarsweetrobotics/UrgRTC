@@ -1,0 +1,3 @@
+[submodule "urglib"]
+	path = urglib
+	url = https://github.com/ysuga/urglib.git

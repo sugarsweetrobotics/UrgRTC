@@ -114,18 +114,45 @@ RTC::ReturnCode_t UrgRTC::onShutdown(RTC::UniqueId ec_id)
 
 RTC::ReturnCode_t UrgRTC::onActivated(RTC::UniqueId ec_id)
 {
+  m_pUrg = new ssr::UrgBase(m_port_name.c_str(), m_baudrate);
+  m_pUrg->startMeasure();
+
+  coil::usleep(1000);
+
+  ssr::RangeData r = m_pUrg->getRangeData();
+  m_range.config.minAngle = r.minAngle;
+  m_range.config.maxAngle = r.maxAngle;
+  m_range.config.angularRes = r.angularRes;
+  m_range.config.minRange = r.minRange;
+  m_range.config.maxRange = r.maxRange;
+  //m_range.config.rangeRes = r.rangeRes;
+  //m_range.config.frequency = r.frequency
   return RTC::RTC_OK;
 }
 
 
 RTC::ReturnCode_t UrgRTC::onDeactivated(RTC::UniqueId ec_id)
 {
+  m_pUrg->reset();
+  delete m_pUrg;
   return RTC::RTC_OK;
 }
 
 
 RTC::ReturnCode_t UrgRTC::onExecute(RTC::UniqueId ec_id)
 {
+  ssr::RangeData r = m_pUrg->getRangeData();
+  m_range.config.minAngle = r.minAngle;
+  m_range.config.maxAngle = r.maxAngle;
+  if (r.length != m_range.ranges.length()) {
+    m_range.ranges.length(r.length);
+  }
+
+  for(int i = 0;i < r.length;i++) {
+    m_range.ranges[i] = r.range[i];
+  }
+  m_rangeOut.write();
+
   return RTC::RTC_OK;
 }
 
@@ -146,6 +173,9 @@ RTC::ReturnCode_t UrgRTC::onError(RTC::UniqueId ec_id)
 
 RTC::ReturnCode_t UrgRTC::onReset(RTC::UniqueId ec_id)
 {
+  if (m_pUrg) {
+    m_pUrg->reset();
+  }
   return RTC::RTC_OK;
 }
 

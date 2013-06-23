@@ -16,6 +16,10 @@ CONFIGURE_FILE ("${PROJECT_SOURCE_DIR}/cmake/uninstall_target.cmake.in"
 ADD_CUSTOM_TARGET (uninstall "${CMAKE_COMMAND}" -P
     "${PROJECT_BINARY_DIR}/uninstall_target.cmake")
 
+
+add_subdirectory(urglib)
+
+
 #option(BUILD_EXAMPLES "Build and install examples" OFF)
 option(BUILD_DOCUMENTATION "Build the documentation" ON)
 #option(BUILD_TESTS "Build the tests" OFF)
@@ -57,6 +61,8 @@ endif(${OpenRTM_FOUND})
 # Universal settings
 #enable_testing()
 
+
+
 # Subdirectories
 add_subdirectory(cmake)
 if(BUILD_DOCUMENTATION)
@@ -74,6 +80,8 @@ endif(BUILD_IDL)
 add_subdirectory(include)
 MAP_ADD_STR(headers  "include/" comp_hdrs)
 add_subdirectory(src)
+
+
 
 #if(BUILD_TESTS)
 #    add_subdirectory(test)
