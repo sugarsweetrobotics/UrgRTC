@@ -117,7 +117,7 @@ RTC::ReturnCode_t UrgRTC::onActivated(RTC::UniqueId ec_id)
   m_pUrg = new ssr::UrgBase(m_port_name.c_str(), m_baudrate);
   m_pUrg->startMeasure();
 
-  coil::usleep(1000);
+  coil::usleep(1000*1000);
 
   ssr::RangeData r = m_pUrg->getRangeData();
   m_range.config.minAngle = r.minAngle;
@@ -142,14 +142,19 @@ RTC::ReturnCode_t UrgRTC::onDeactivated(RTC::UniqueId ec_id)
 RTC::ReturnCode_t UrgRTC::onExecute(RTC::UniqueId ec_id)
 {
   ssr::RangeData r = m_pUrg->getRangeData();
+  if (m_debug) {
+    std::cout << "MinAngle  : " << r.minAngle << std::endl;
+    std::cout << "MaxAngle  : " << r.maxAngle << std::endl;
+  }
   m_range.config.minAngle = r.minAngle;
   m_range.config.maxAngle = r.maxAngle;
+  m_range.config.angularRes = r.angularRes;
   if (r.length != m_range.ranges.length()) {
     m_range.ranges.length(r.length);
   }
 
   for(int i = 0;i < r.length;i++) {
-    m_range.ranges[i] = r.range[i];
+    m_range.ranges[i] = r.range[i] / 1000.0;
   }
   m_rangeOut.write();
 

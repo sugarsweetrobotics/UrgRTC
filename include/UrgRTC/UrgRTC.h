@@ -1,4 +1,4 @@
-// -*- C++ -*-
+/// -*- C++ -*-
 /*!
  * @file  UrgRTC.h
  * @brief Hokuyo URG RTC
