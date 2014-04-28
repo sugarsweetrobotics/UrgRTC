@@ -114,17 +114,14 @@ RTC::ReturnCode_t UrgRTC::onShutdown(RTC::UniqueId ec_id)
 
 RTC::ReturnCode_t UrgRTC::onActivated(RTC::UniqueId ec_id)
 {
+  std::cout << "[UrgRTC] Starting Urg in (" << m_port_name << ", baudrate=" << m_baudrate << ")" << std::endl;
   m_pUrg = new ssr::UrgBase(m_port_name.c_str(), m_baudrate);
   m_pUrg->startMeasure();
 
-  coil::usleep(1000*1000);
-
-  ssr::RangeData r = m_pUrg->getRangeData();
-  m_range.config.minAngle = r.minAngle;
-  m_range.config.maxAngle = r.maxAngle;
-  m_range.config.angularRes = r.angularRes;
-  m_range.config.minRange = r.minRange;
-  m_range.config.maxRange = r.maxRange;
+  std::cout << "Waiting" <<std::endl;
+  coil::usleep(1000*1000*3);
+  std::cout << "Starting..." << std::endl;
+  //  ssr::RangeData r = m_pUrg->getRangeData();
   //m_range.config.rangeRes = r.rangeRes;
   //m_range.config.frequency = r.frequency
   return RTC::RTC_OK;
@@ -142,7 +139,14 @@ RTC::ReturnCode_t UrgRTC::onDeactivated(RTC::UniqueId ec_id)
 RTC::ReturnCode_t UrgRTC::onExecute(RTC::UniqueId ec_id)
 {
   ssr::RangeData r = m_pUrg->getRangeData();
+  //  m_range.config.minAngle = r.minAngle;
+  //  m_range.config.maxAngle = r.maxAngle;
+  //  m_range.config.angularRes = r.angularRes;
+  //  m_range.config.minRange = r.minRange;
+  //  m_range.config.maxRange = r.maxRange;
+
   if (m_debug) {
+    std::cout << "Length    : " << r.length << std::endl;
     std::cout << "MinAngle  : " << r.minAngle << std::endl;
     std::cout << "MaxAngle  : " << r.maxAngle << std::endl;
   }
