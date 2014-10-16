@@ -121,6 +121,15 @@ RTC::ReturnCode_t UrgRTC::onActivated(RTC::UniqueId ec_id)
   std::cout << "Waiting" <<std::endl;
   coil::usleep(1000*1000*3);
   std::cout << "Starting..." << std::endl;
+  
+  m_range.geometry.geometry.pose.position.x = 0;
+  m_range.geometry.geometry.pose.position.y = 0;
+  m_range.geometry.geometry.pose.position.z = 0;
+
+  m_range.geometry.geometry.pose.orientation.p = 0;
+  m_range.geometry.geometry.pose.orientation.r = 0;
+  m_range.geometry.geometry.pose.orientation.y = 0;
+  
   //  ssr::RangeData r = m_pUrg->getRangeData();
   //m_range.config.rangeRes = r.rangeRes;
   //m_range.config.frequency = r.frequency
