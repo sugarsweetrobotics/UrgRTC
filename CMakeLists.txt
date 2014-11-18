@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 project(UrgRTC)
 string(TOLOWER ${PROJECT_NAME} PROJECT_NAME_LOWER)
 include("${PROJECT_SOURCE_DIR}/cmake/utils.cmake")
-set(PROJECT_VERSION 1.0.0 CACHE STRING "UrgRTC version")
+set(PROJECT_VERSION 1.0.1 CACHE STRING "UrgRTC version")
 DISSECT_VERSION()
 set(PROJECT_DESCRIPTION "Hokuyo URG RTC")
 set(PROJECT_VENDOR "Sugar Sweet Robotics")
@@ -15,10 +15,6 @@ CONFIGURE_FILE ("${PROJECT_SOURCE_DIR}/cmake/uninstall_target.cmake.in"
     "${PROJECT_BINARY_DIR}/uninstall_target.cmake" IMMEDIATE @ONLY)
 ADD_CUSTOM_TARGET (uninstall "${CMAKE_COMMAND}" -P
     "${PROJECT_BINARY_DIR}/uninstall_target.cmake")
-
-
-add_subdirectory(urglib)
-
 
 #option(BUILD_EXAMPLES "Build and install examples" OFF)
 option(BUILD_DOCUMENTATION "Build the documentation" ON)
@@ -61,8 +57,6 @@ endif(${OpenRTM_FOUND})
 # Universal settings
 #enable_testing()
 
-
-
 # Subdirectories
 add_subdirectory(cmake)
 if(BUILD_DOCUMENTATION)
@@ -80,8 +74,6 @@ endif(BUILD_IDL)
 add_subdirectory(include)
 MAP_ADD_STR(headers  "include/" comp_hdrs)
 add_subdirectory(src)
-
-
 
 #if(BUILD_TESTS)
 #    add_subdirectory(test)

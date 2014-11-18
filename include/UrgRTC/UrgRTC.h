@@ -248,6 +248,24 @@ class UrgRTC
    * - DefaultValue: 2
    */
   int m_encoding;
+  /*!
+   * 
+   * - Name:  geometry_x
+   * - DefaultValue: 0
+   */
+  double m_geometry_x;
+  /*!
+   * 
+   * - Name:  geometry_y
+   * - DefaultValue: 0
+   */
+  double m_geometry_y;
+  /*!
+   * 
+   * - Name:  geometry_z
+   * - DefaultValue: 0
+   */
+  double m_geometry_z;
 
   // </rtc-template>
 
