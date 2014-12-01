@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "UrgRTC", "UrgRTC.vdproj", "{593524CE-1045-4D22-881B-75D6770832C1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Default = Debug|Default
+		Release|Default = Release|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{593524CE-1045-4D22-881B-75D6770832C1}.Debug|Default.ActiveCfg = Debug
+		{593524CE-1045-4D22-881B-75D6770832C1}.Debug|Default.Build.0 = Debug
+		{593524CE-1045-4D22-881B-75D6770832C1}.Release|Default.ActiveCfg = Release
+		{593524CE-1045-4D22-881B-75D6770832C1}.Release|Default.Build.0 = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
