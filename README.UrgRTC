@@ -20,7 +20,7 @@
 # <rtc-template block="module">
 Module Name: UrgRTC
 Description: Hokuyo URG RTC
-Version:     1.0.0
+Version:     1.0.1
 Vendor:      Sugar Sweet Robotics
 Category:    Senso
 Kind:        DataFlowComponent
@@ -135,6 +135,30 @@ Lang Type:
 		Description:     
 		Type:            int
 		DefaultValue:     2
+		Unit:            
+		Range:           
+		Constraint:      
+
+		Name:             geometry_x
+		Description:     
+		Type:            double
+		DefaultValue:     0
+		Unit:            
+		Range:           
+		Constraint:      
+
+		Name:             geometry_y
+		Description:     
+		Type:            double
+		DefaultValue:     0
+		Unit:            
+		Range:           
+		Constraint:      
+
+		Name:             geometry_z
+		Description:     
+		Type:            double
+		DefaultValue:     0
 		Unit:            
 		Range:           
 		Constraint:      

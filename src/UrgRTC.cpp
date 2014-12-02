@@ -16,7 +16,7 @@ static const char* urgrtc_spec[] =
     "implementation_id", "UrgRTC",
     "type_name",         "UrgRTC",
     "description",       "Hokuyo URG RTC",
-    "version",           "1.0.0",
+    "version",           "1.0.1",
     "vendor",            "Sugar Sweet Robotics",
     "category",          "Senso",
     "activity_type",     "PERIODIC",
@@ -29,13 +29,19 @@ static const char* urgrtc_spec[] =
     "conf.default.baudrate", "115200",
     "conf.default.debug", "0",
     "conf.default.encoding", "2",
+    "conf.default.geometry_x", "0",
+    "conf.default.geometry_y", "0",
+    "conf.default.geometry_z", "0",
     // Widget
     "conf.__widget__.port_name", "text",
     "conf.__widget__.baudrate", "text",
     "conf.__widget__.debug", "text",
     "conf.__widget__.encoding", "spin",
+    "conf.__widget__.geometry_x", "text",
+    "conf.__widget__.geometry_y", "text",
+    "conf.__widget__.geometry_z", "text",
     // Constraints
-    "conf.__constraints__.encoding", "{twochar: 2, threechar: 3}",
+    "conf.__constraints__.encoding", "{twochar:2,threechar:3}",
     ""
   };
 // </rtc-template>
@@ -85,6 +91,9 @@ RTC::ReturnCode_t UrgRTC::onInitialize()
   bindParameter("baudrate", m_baudrate, "115200");
   bindParameter("debug", m_debug, "0");
   bindParameter("encoding", m_encoding, "2");
+  bindParameter("geometry_x", m_geometry_x, "0");
+  bindParameter("geometry_y", m_geometry_y, "0");
+  bindParameter("geometry_z", m_geometry_z, "0");
   // </rtc-template>
   
   return RTC::RTC_OK;
@@ -121,6 +130,15 @@ RTC::ReturnCode_t UrgRTC::onActivated(RTC::UniqueId ec_id)
   std::cout << "Waiting" <<std::endl;
   coil::usleep(1000*1000*3);
   std::cout << "Starting..." << std::endl;
+  
+  m_range.geometry.geometry.pose.position.x = m_geometry_x;
+  m_range.geometry.geometry.pose.position.y = m_geometry_y;
+  m_range.geometry.geometry.pose.position.z = m_geometry_z;
+
+  m_range.geometry.geometry.pose.orientation.p = 0;
+  m_range.geometry.geometry.pose.orientation.r = 0;
+  m_range.geometry.geometry.pose.orientation.y = 0;
+  
   //  ssr::RangeData r = m_pUrg->getRangeData();
   //m_range.config.rangeRes = r.rangeRes;
   //m_range.config.frequency = r.frequency
