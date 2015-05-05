@@ -110,6 +110,9 @@ port_name        string             "COM1"
 baudrate         int                115200           
 debug            int                0                
 encoding         int                2                
+geometry_x       double             0                
+geometry_y       double             0                
+geometry_z       double             0                
 ================ ================== ================ ======
 
 Ports

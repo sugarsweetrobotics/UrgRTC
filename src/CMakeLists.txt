@@ -24,7 +24,7 @@ endif (DEFINED OPENRTM_LIBRARIES)
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
 include_directories(${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME})
-include_directories(${PROJECT_SOURCE_DIR}/urglib/include/)
+include_directories(${PROJECT_SOURCE_DIR}/urglib/include)
 include_directories(${PROJECT_BINARY_DIR})
 include_directories(${PROJECT_BINARY_DIR}/idl)
 include_directories(${OPENRTM_INCLUDE_DIRS})
