@@ -96,6 +96,8 @@ RTC::ReturnCode_t UrgRTC::onInitialize()
   bindParameter("geometry_z", m_geometry_z, "0");
   // </rtc-template>
   
+
+  m_pUrg = NULL;
   return RTC::RTC_OK;
 }
 
@@ -127,9 +129,12 @@ RTC::ReturnCode_t UrgRTC::onActivated(RTC::UniqueId ec_id)
   m_pUrg = new ssr::UrgBase(m_port_name.c_str(), m_baudrate);
   m_pUrg->startMeasure();
 
-  std::cout << "Waiting" <<std::endl;
+  std::cout << "[UrgRTC] Waiting...." <<std::endl;
   coil::usleep(1000*1000*3);
-  std::cout << "Starting..." << std::endl;
+  std::cout << "[UrgRTC] Starting UrgRTC..." << std::endl;
+  std::cout << "[UrgRTC] offset_x : " << m_geometry_x << "\n";
+  std::cout << "[UrgRTC] offset_y : " << m_geometry_y << "\n";
+  std::cout << "[UrgRTC] offset_z : " << m_geometry_z << "\n";
   
   m_range.geometry.geometry.pose.position.x = m_geometry_x;
   m_range.geometry.geometry.pose.position.y = m_geometry_y;
@@ -138,19 +143,21 @@ RTC::ReturnCode_t UrgRTC::onActivated(RTC::UniqueId ec_id)
   m_range.geometry.geometry.pose.orientation.p = 0;
   m_range.geometry.geometry.pose.orientation.r = 0;
   m_range.geometry.geometry.pose.orientation.y = 0;
-  
-  //  ssr::RangeData r = m_pUrg->getRangeData();
-  //m_range.config.rangeRes = r.rangeRes;
-  //m_range.config.frequency = r.frequency
   return RTC::RTC_OK;
 }
 
 
 RTC::ReturnCode_t UrgRTC::onDeactivated(RTC::UniqueId ec_id)
 {
-  m_pUrg->reset();
-  delete m_pUrg;
-  return RTC::RTC_OK;
+	std::cout << "[UrgRTC] Deactivating RTC....";
+	if(m_pUrg) {
+		m_pUrg->Stop();
+		m_pUrg->reset();
+	  delete m_pUrg;
+	  m_pUrg = NULL;
+	}
+	std::cout << "[UrgRTC] OK." << std::endl;
+	return RTC::RTC_OK;
 }
 
 
@@ -164,9 +171,9 @@ RTC::ReturnCode_t UrgRTC::onExecute(RTC::UniqueId ec_id)
   //  m_range.config.maxRange = r.maxRange;
 
   if (m_debug) {
-    std::cout << "Length    : " << r.length << std::endl;
-    std::cout << "MinAngle  : " << r.minAngle << std::endl;
-    std::cout << "MaxAngle  : " << r.maxAngle << std::endl;
+    std::cout << "[UrgRTC] Length    : " << r.length << std::endl;
+    std::cout << "[UrgRTC] MinAngle  : " << r.minAngle << std::endl;
+    std::cout << "[UrgRTC] MaxAngle  : " << r.maxAngle << std::endl;
   }
   m_range.config.minAngle = r.minAngle;
   m_range.config.maxAngle = r.maxAngle;
@@ -200,9 +207,6 @@ RTC::ReturnCode_t UrgRTC::onError(RTC::UniqueId ec_id)
 
 RTC::ReturnCode_t UrgRTC::onReset(RTC::UniqueId ec_id)
 {
-  if (m_pUrg) {
-    m_pUrg->reset();
-  }
   return RTC::RTC_OK;
 }
 
