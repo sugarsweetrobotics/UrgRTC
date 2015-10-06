@@ -18,7 +18,7 @@ static const char* urgrtc_spec[] =
     "description",       "Hokuyo URG RTC",
     "version",           "1.0.1",
     "vendor",            "Sugar Sweet Robotics",
-    "category",          "Senso",
+    "category",          "Sensor",
     "activity_type",     "PERIODIC",
     "kind",              "DataFlowComponent",
     "max_instance",      "1",
