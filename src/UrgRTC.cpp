@@ -18,14 +18,14 @@ static const char* urgrtc_spec[] =
     "description",       "Hokuyo URG RTC",
     "version",           "1.0.1",
     "vendor",            "Sugar Sweet Robotics",
-    "category",          "Senso",
+    "category",          "Sensor",
     "activity_type",     "PERIODIC",
     "kind",              "DataFlowComponent",
     "max_instance",      "1",
     "language",          "C++",
     "lang_type",         "compile",
     // Configuration variables
-    "conf.default.port_name", "COM1",
+    "conf.default.port_name", "\\\\.\\COM26",
     "conf.default.baudrate", "115200",
     "conf.default.debug", "0",
     "conf.default.encoding", "2",
@@ -127,7 +127,7 @@ RTC::ReturnCode_t UrgRTC::onActivated(RTC::UniqueId ec_id)
 {
   std::cout << "[UrgRTC] Starting Urg in (" << m_port_name << ", baudrate=" << m_baudrate << ")" << std::endl;
   m_pUrg = new ssr::UrgBase(m_port_name.c_str(), m_baudrate);
-  m_pUrg->startMeasure();
+  m_pUrg->startMeasure(0, 65535, 1, 0, true, 0);
 
   std::cout << "[UrgRTC] Waiting...." <<std::endl;
   coil::usleep(1000*1000*3);
